@@ -1,0 +1,21 @@
+<html>
+	<body>
+		<form action='reset_credentials' method="POST">
+			<table>
+				<thead>
+					<td>ID</td>
+					<td>Username</td>
+				</thead>
+				<tbody>
+					{% for user in users -%}
+						<tr>
+							<td>{{user.id}}</td>
+							<td>{{user.username}}</td>
+							<td><button type='submit'>Reset Credentials</button></td>
+						<tr>
+					{%- endfor %}
+				</tbody>
+			</table>
+		</form>
+	</body>
+</html>

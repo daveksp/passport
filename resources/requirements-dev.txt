@@ -1,0 +1,15 @@
+pep8==1.7.0
+pyflakes==1.5.0
+nose==1.3.7
+
+mock==2.0.0
+funcsigs==1.0.2  # via mock
+pbr==1.10.0  # via mock
+
+rednose==1.2.1
+colorama==0.3.7  # via rednose
+python-termstyle==0.1.10  # via rednose
+
+freezegun==0.3.8
+
+Flask-Testing==0.6.2
