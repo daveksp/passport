@@ -38,9 +38,13 @@ class Client(db.Model):
     client_secret = db.Column(db.String(55), nullable=False)
 
     name = db.Column(db.String(40), unique=True, nullable=False)
+    description = db.Column(db.String(240), nullable=False)
 
-    _redirect_uris = db.Column(db.String(20))
-    _default_scopes = db.Column(db.String(20))
+    user_id = db.Column(db.ForeignKey('users.id'))
+    user = db.relationship('User')
+    
+    _redirect_uris = db.Column(db.String(60))
+    _default_scopes = db.Column(db.String(40))
 
     @property
     def client_type(self):

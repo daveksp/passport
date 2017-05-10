@@ -71,7 +71,7 @@ class UserSchema(schemas.Schema):
             raise AccountException(failure)
 
     @post_load
-    def make_order(self, data):
+    def make_user(self, data):
         data.pop('retype_password')
         data['password'] = encrypt_password(data['password'])
         return User(**(data or {}))

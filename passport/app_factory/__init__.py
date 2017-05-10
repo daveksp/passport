@@ -1,14 +1,12 @@
 from flask import Flask
+from flask_migrate import Migrate
 from flask_security import SQLAlchemyUserDatastore
-
 from flask_uploads import configure_uploads
 
 from .. import config
-
 from ..api.utilities import project_path
-from ..extensions import celery, db, images, oauth, security
+from ..extensions import celery, db, images, migrate, oauth, security
 from ..models import User, Role
-
 
 from .register_blueprints import register_blueprints
 from .initialize_extensions import initialize_extensions
@@ -43,6 +41,7 @@ def create_app(package_name, package_path, settings_override=None,
     initialize_extensions(app, extensions)
     user_datastore = SQLAlchemyUserDatastore(db, User, Role)
     security.init_app(app, user_datastore)
+    migrate.init_app(app, db)
     configure_logging(app)
     configure_uploads(app, images)
 
