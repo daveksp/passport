@@ -22,3 +22,5 @@ class Common(object):
 
     SQLALCHEMY_DATABASE_URI = 'sqlite:////tmp/passport.db'
     SQLALCHEMY_TRACK_MODIFICATIONS = False
+
+    SECURITY_POST_LOGIN_VIEW = 'auth/register'

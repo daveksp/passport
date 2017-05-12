@@ -46,7 +46,8 @@ def create_roles(db):
 
 def create_admin_user(db, admin_role):
     user = User(username='admin', email='dkspinheiro@gmail.com', 
-                password=encrypt_password('123456'), roles=[admin_role])
+                password=encrypt_password('123456'), roles=[admin_role],
+                active=True)
 
     db.session.add(user)
     db.session.commit()
@@ -55,11 +56,18 @@ def create_admin_user(db, admin_role):
 
 def create_clients(db, user):
     clients = [
-        {'name': 'stats', 'description': 'api for generating statistics'},
-        {'name': 'inventory', 'description': 'api for mananging inventory'},
-        {'name': 'payment', 'description': 'api for mananging payment options'},
-        {'name': 'transactions', 'description': 'api for mananging transactions between users/teams'},
-        {'name': 'campaigns', 'description': 'api for mananging team campaings'},
+        {'name': 'stats', 'description': 'api for generating statistics', 
+         'redirect_uris': None},
+        {'name': 'inventory', 'description': 'api for mananging inventory', 
+         'redirect_uris': None},
+        {'name': 'payment', 'description': 'api for mananging payment options',
+         'redirect_uris': None},
+        {'name': 'transactions', 'description': 'api for mananging transactions between users/teams',
+         'redirect_uris': None},
+        {'name': 'campaigns', 'description': 'api for mananging team campaings', 
+        'redirect_uris': None},
+        {'name': 'api gateway', 'description': 'api gateway', 
+        'redirect_uris': 'http://127.0.0.1:8000/authorized'}
     ]
     for client in clients:
         client_obj = Client(
@@ -67,7 +75,7 @@ def create_clients(db, user):
             description=client['description'],
             client_id=gen_salt(40),
             client_secret=gen_salt(50),
-            _redirect_uris=None,
+            _redirect_uris=client['redirect_uris'],
             _default_scopes='email',
             user_id=user.id,
         )

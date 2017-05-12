@@ -1,10 +1,10 @@
 from __future__ import absolute_import
 
+from datetime import datetime
+import json
 import logging
 
-from datetime import datetime
 from flask import current_app, request, g, has_request_context
-import json
 
 from .utilities import request_ids, redact_sensitive_data
 
@@ -56,8 +56,8 @@ def setup_logging(app):
             data = json.loads(response.data)
         except ValueError:
             data = {}
-
-        if not isinstance(data, list):
+        
+        if not isinstance(data, list) and data is not None:
             data = redact_sensitive_data(data, sensitive_fields)
         log_data['data'] = data
 

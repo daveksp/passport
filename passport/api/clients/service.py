@@ -50,7 +50,7 @@ def load_grant(client_id, code):
 @oauth.grantsetter
 def save_grant(client_id, code, request, *args, **kwargs):
     # decide the expires time yourself
-    expires = datetime.now() + timedelta(sec=100)
+    expires = datetime.now() + timedelta(seconds=100)
     grant = Grant(
         client_id=client_id,
         code=code['code'],
