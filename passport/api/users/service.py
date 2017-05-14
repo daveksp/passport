@@ -13,7 +13,7 @@ def save_photo(image, username):
 
 
 def current_user():
-    if 'id' in session:
-        uid = session['id']
+    if 'user_id' in session:
+        uid = session['user_id']
         return User.query.get(uid)
     return None

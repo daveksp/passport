@@ -1,5 +1,7 @@
 # coding: utf-8
+from flask import request
 from flask.ext.security import RoleMixin, UserMixin
+
 from .extensions import db
 
 
@@ -42,7 +44,7 @@ class Client(db.Model):
 
     user_id = db.Column(db.ForeignKey('users.id'))
     user = db.relationship('User')
-    
+
     _redirect_uris = db.Column(db.String(60))
     _default_scopes = db.Column(db.String(40))
 
@@ -90,11 +92,24 @@ class Grant(db.Model):
 
     _scopes = db.Column(db.String(20))
 
+    def delete(self):
+        db.session.delete(self)
+        db.session.commit()
+        return self
+
     @property
     def scopes(self):
         if self._scopes:
             return self._scopes.split()
         return []
+
+    def validate_redirect_uri(self, redirect_uri):
+        is_valid = True
+        if (hasattr(request, 'redirect_uri') and
+                redirect_uri != request.redirect_uri):
+            is_valid = False
+
+        return is_valid
 
 
 class Token(db.Model):

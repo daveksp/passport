@@ -56,10 +56,9 @@ def setup_logging(app):
             data = json.loads(response.data)
         except ValueError:
             data = {}
-        
+
         if not isinstance(data, list) and data is not None:
             data = redact_sensitive_data(data, sensitive_fields)
-        log_data['data'] = data
 
         current_app.logger.info('Response Data: {0}'.format(log_data))
         return response

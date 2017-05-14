@@ -1,20 +1,20 @@
 from datetime import datetime, timedelta
 from werkzeug.security import gen_salt
 
-from ..users.service import current_user
-
 from ...extensions import db, oauth
 from ...models import Client, Grant
 
+from ..users.service import current_user
+
 
 def create_client(name, redirect_uris):
-    # 'http://localhost:8000/authorized'
     client = Client(
         name=name,
         client_id=gen_salt(40),
         client_secret=gen_salt(50),
         _redirect_uris=redirect_uris,
         _default_scopes='email',
+        user_id=1
     )
     db.session.add(client)
     db.session.commit()
@@ -44,13 +44,13 @@ def load_client(client_id):
 
 @oauth.grantgetter
 def load_grant(client_id, code):
-    return Grant.query.filter_by(client_id=client_id, code=code).first()
+    grant = Grant.query.filter_by(client_id=client_id, code=code).first()
+    return grant
 
 
 @oauth.grantsetter
 def save_grant(client_id, code, request, *args, **kwargs):
-    # decide the expires time yourself
-    expires = datetime.now() + timedelta(seconds=100)
+    expires = datetime.utcnow() + timedelta(seconds=600)
     grant = Grant(
         client_id=client_id,
         code=code['code'],

@@ -1,10 +1,9 @@
 # coding: utf-8
-from flask import (jsonify, Blueprint, render_template, request, session)
-from flask_security import login_required
+from flask import Blueprint, render_template
 
 
 blueprint = Blueprint(
-    'auth', __name__, url_prefix='/auth', template_folder='templates')
+    'oauth', __name__, url_prefix='/oauth', template_folder='templates')
 
 
 @blueprint.route('/register', methods=['GET'])

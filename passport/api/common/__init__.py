@@ -4,6 +4,6 @@ from flask_restful import Api
 
 
 blueprint = Blueprint(
-    'oauth', __name__, url_prefix='/oauth', template_folder='templates')
+    'auth', __name__, url_prefix='/auth', template_folder='templates')
 
 api = Api(blueprint)

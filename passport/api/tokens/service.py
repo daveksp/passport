@@ -19,6 +19,7 @@ def save_token(token, request, *args, **kwargs):
 
     token_obj = Token(
         access_token=token['access_token'],
+        refresh_token=token['refresh_token'],
         token_type=token['token_type'],
         _scopes=token['scope'],
         expires=expires,

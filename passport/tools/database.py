@@ -45,7 +45,7 @@ def create_roles(db):
 
 
 def create_admin_user(db, admin_role):
-    user = User(username='admin', email='dkspinheiro@gmail.com', 
+    user = User(username='admin', email='dkspinheiro@gmail.com',
                 password=encrypt_password('123456'), roles=[admin_role],
                 active=True)
 
@@ -56,18 +56,24 @@ def create_admin_user(db, admin_role):
 
 def create_clients(db, user):
     clients = [
-        {'name': 'stats', 'description': 'api for generating statistics', 
+        {'name': 'stats', 'description': 'api for generating statistics',
          'redirect_uris': None},
-        {'name': 'inventory', 'description': 'api for mananging inventory', 
+        {'name': 'inventory', 'description': 'api for mananging inventory',
          'redirect_uris': None},
         {'name': 'payment', 'description': 'api for mananging payment options',
          'redirect_uris': None},
-        {'name': 'transactions', 'description': 'api for mananging transactions between users/teams',
+        {'name': 'transactions',
+         'description': 'api for mananging transactions between users/teams',
          'redirect_uris': None},
-        {'name': 'campaigns', 'description': 'api for mananging team campaings', 
-        'redirect_uris': None},
-        {'name': 'api gateway', 'description': 'api gateway', 
-        'redirect_uris': 'http://127.0.0.1:8000/authorized'}
+        {'name': 'campaigns', 'description': 'api for mananging team campaings',
+         'redirect_uris': None},
+        {'name': 'api gateway', 'description': 'api gateway',
+         'redirect_uris': ' '.join([
+            'http://localhost:8000/authorized',
+            'http://127.0.0.1:8000/authorized',
+            'http://127.0.1:8000/authorized',
+            'http://127.1:8000/authorized',
+            ])}
     ]
     for client in clients:
         client_obj = Client(
