@@ -24,3 +24,5 @@ class Common(object):
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
     SECURITY_POST_LOGIN_VIEW = 'auth/register'
+
+    RSA_PRIVATE_KEY = '/home/david/Documentos/projetos/ss_exchange/passport/resources/test_rsa_private_key.txt'

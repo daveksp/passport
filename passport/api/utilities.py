@@ -1,7 +1,7 @@
 import uuid
 import os
 
-from flask import request, g
+from flask import current_app, request, g
 
 
 # Return an id that lasts the life of the request,
@@ -47,3 +47,11 @@ def project_path(subpath=None):
         parts = (p,) + tuple(subpath)
         p = os.path.sep.join(parts)
     return p
+
+
+def get_rsa_private_key():
+    private_key = None
+    with open(current_app.config['RSA_PRIVATE_KEY'], 'rb') as key_file:
+        private_key = key_file.read()
+
+    return private_key

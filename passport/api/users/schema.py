@@ -8,7 +8,7 @@ from ..exceptions import AccountException, RequestDataException
 from ..extensions import schemas
 
 from ...extensions import db
-from ...models import Person, Role, User
+from ...models import Role, User
 
 from .failures import Failures
 
@@ -53,7 +53,6 @@ class UserSchema(schemas.Schema):
         if found is None:
             raise RequestDataException(Failures.passwords_too_week)
 
-
     @validates_schema(skip_on_field_errors=True)
     def validate_username_email(self, data):
         user = User.query.filter(db.or_(
@@ -75,21 +74,3 @@ class UserSchema(schemas.Schema):
         data.pop('retype_password')
         data['password'] = encrypt_password(data['password'])
         return User(**(data or {}))
-
-
-class PersonSchema(schemas.Schema):
-
-    first_name = schemas.String(required=True)
-    last_name = schemas.String(required=True)
-    photo = schemas.String()
-    team = schemas.String(required=True)
-    user = schemas.Nested(UserSchema)
-
-    def handle_error(self, exc, data):
-        response = CommonFailures.information_missing
-        response['details'] = exc.message
-        raise RequestDataException(response)
-
-    @post_load
-    def make_person(self, data):
-        return Person(**(data or {}))
