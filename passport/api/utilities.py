@@ -34,7 +34,7 @@ def redact_sensitive_data(data, sensitive_fields):
 
 def project_path(subpath=None):
     """
-    Get the absolute path of the project
+    Get project's absolute path
 
     :param subpath: A subpath within the project.  If omitted,
     return the project root
@@ -51,7 +51,7 @@ def project_path(subpath=None):
 
 def get_rsa_private_key():
     private_key = None
-    with open(current_app.config['RSA_PRIVATE_KEY'], 'rb') as key_file:
+    with open(current_app.config['JWT_PRIVATE_KEY'], 'rb') as key_file:
         private_key = key_file.read()
 
     return private_key

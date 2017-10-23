@@ -27,9 +27,6 @@ def setup_handlers(app):
     def request_data_error(e):
         error = e.errors[0] if type(e.errors) == list else e.errors
         response = {'error': error}
-        endpoints = ['orders', 'compliance_checks']
-        if get_request_endpoint().split('.')[0] in endpoints:
-            response['is_compliant'] = False
 
         return jsonify(response), 400
 

@@ -5,7 +5,8 @@ from flask_uploads import configure_uploads
 
 from .. import config
 from ..api.utilities import project_path
-from ..extensions import celery, db, images, migrate, oauth, security
+from ..extensions import (celery, db, images, jwt, kv_session, migrate, oauth,
+                          security)
 from ..models import User, Role
 from ..security.login_form import ExtendedLoginForm
 
@@ -36,7 +37,7 @@ def create_app(package_name, package_path, settings_override=None,
         app.config.from_object(settings_override)
 
     register_blueprints(app, package_name, package_path)
-    common_extensions = frozenset([celery, db, oauth])
+    common_extensions = frozenset([celery, db, jwt, kv_session, oauth])
     initialize_extensions(app, common_extensions)
 
     initialize_extensions(app, extensions)

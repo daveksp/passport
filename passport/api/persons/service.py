@@ -1,10 +1,5 @@
-from jose import jws
-from jose.constants import ALGORITHMS
-
-from ...extensions import db
+from ...extensions import db, jwt
 from ...models import Person
-
-from ..utilities import get_rsa_private_key
 
 from .schema import PersonSchema
 
@@ -29,11 +24,10 @@ def save_and_dump_person(person):
 
 
 def generate_jwt(user):
-    person = Person.query.filter_by(user_id=user.id)
+    person = Person.query.filter_by(user_id=user.id).first()
     schema = PersonSchema()
 
     response, response_errors = schema.dump(person)
-    token = jws.sign(
-        response, get_rsa_private_key(), algorithm=ALGORITHMS.RS256)
+    token = jwt.sign_token(response)
 
     return token

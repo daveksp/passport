@@ -7,10 +7,11 @@ from ...models import Client, Grant
 from ..users.service import current_user
 
 
-def create_client(name, redirect_uris):
+def create_client(name, redirect_uris, description):
     client = Client(
         name=name,
         client_id=gen_salt(40),
+        description=description,
         client_secret=gen_salt(50),
         _redirect_uris=redirect_uris,
         _default_scopes='email',

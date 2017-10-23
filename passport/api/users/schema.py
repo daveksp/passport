@@ -48,7 +48,6 @@ class UserSchema(schemas.Schema):
     def validate_password_strength(self, data):
         pattern = re.compile(
             r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$')
-
         found = pattern.match(data['password'])
         if found is None:
             raise RequestDataException(Failures.passwords_too_week)

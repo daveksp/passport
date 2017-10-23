@@ -57,8 +57,8 @@ def setup_logging(app):
         except ValueError:
             data = {}
 
-        if not isinstance(data, list) and data is not None:
-            data = redact_sensitive_data(data, sensitive_fields)
+        #if not isinstance(data, list) and data is not None:
+        #    data = redact_sensitive_data(data, sensitive_fields)
 
         current_app.logger.info('Response Data: {0}'.format(log_data))
         return response

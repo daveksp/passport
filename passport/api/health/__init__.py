@@ -8,7 +8,7 @@ api = Api(blueprint)
 
 
 @api.resource('')
-class SkuResource(Resource):
+class HealthResource(Resource):
 
     def get(self):
         """ Retrieve the health of the endpoint """
