@@ -1,5 +1,5 @@
 from flask_celeryext import FlaskCeleryExt
-from flask.ext.security import Security
+from flask_security import Security
 from flask_kvsession import KVSessionExtension
 from flask_migrate import Migrate
 from flask_oauthlib.provider import OAuth2Provider

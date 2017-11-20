@@ -1,7 +1,7 @@
 from flask_security.utils import encrypt_password
 from werkzeug.security import gen_salt
 
-from ..models import User, Client, Grant, Role, Token, roles_users
+from ..models import Client, Grant, Role, roles_users, Token, User, Person 
 
 
 DB_MODELS = [User, Client, Grant, Token, roles_users]
@@ -45,13 +45,14 @@ def create_roles(db):
 
 
 def create_admin_user(db, admin_role):
-    user = User(username='admin', email='dkspinheiro@gmail.com',
+    person = Person(first_name = 'admin', last_name='admin')
+    person.user = User(username='admin', email='dkspinheiro@gmail.com',
                 password=encrypt_password('123456'), roles=[admin_role],
                 active=True)
 
-    db.session.add(user)
+    db.session.add(person)
     db.session.commit()
-    return user
+    return person
 
 
 def create_clients(db, user):

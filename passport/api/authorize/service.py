@@ -21,5 +21,5 @@ def authorize(self, *args, **kwargs):
     request.client_id = credentials['client_id']
     ret = server.create_authorization_response(
         uri, http_method, body, headers, scopes, credentials)
-
+    import pdb; pdb.set_trace()
     return ret

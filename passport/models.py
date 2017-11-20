@@ -1,6 +1,6 @@
 # coding: utf-8
 from flask import request
-from flask.ext.security import RoleMixin, UserMixin
+from flask_security import RoleMixin, UserMixin
 
 from .extensions import db
 
