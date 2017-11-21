@@ -36,7 +36,8 @@ class Role(db.Model, RoleMixin):
 class Client(db.Model):
     __tablename__ = 'clients'
 
-    client_id = db.Column(db.String(40), primary_key=True)
+    id = db.Column(db.Integer, primary_key=True)
+    client_id = db.Column(db.String(40), unique=True)
     client_secret = db.Column(db.String(55), nullable=False)
 
     name = db.Column(db.String(40), unique=True, nullable=False)

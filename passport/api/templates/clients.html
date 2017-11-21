@@ -1,26 +1,22 @@
-<!DOCTYPE html>
-<html>
-	<head>
-		<meta charset="UTF-8">
-  		<title>Authorization</title>
-	</head>
-	<body>
-		<form action='reset_credentials' method="POST">
-			<table>
-				<thead>
-					<td>ID</td>
-					<td>Username</td>
-				</thead>
-				<tbody>
-					{% for user in users -%}
-						<tr>
-							<td>{{user.id}}</td>
-							<td>{{user.username}}</td>
-							<td><button type='submit'>Reset Credentials</button></td>
-						<tr>
-					{%- endfor %}
-				</tbody>
-			</table>
-		</form>
-	</body>
-</html>
+{% extends 'layout.html' %}
+{% block content %}
+    <form action='reset_credentials' method="POST">
+        <table>
+            <thead>
+                <td>Name</td>
+                <td>Description</td>
+            </thead>
+            <tbody>
+                {% for client in clients -%}
+                    <tr>
+                        <td>{{client.name}}</td>
+                        <td>{{client.description}}</td>
+                        <td><button type='submit'>Reset Credentials</button></td>
+                        <td><button>Edit</button></td>
+                        <td><button>Remove</button></td>
+                    <tr>
+                {%- endfor %}
+            </tbody>
+        </table>
+    </form>
+{% endblock %}

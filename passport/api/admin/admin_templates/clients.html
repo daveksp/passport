@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+  		<title>Testing</title>
+	</head>
+	<body>
+		<form action='reset_credentials' method="POST">
+			<table>
+				<thead>
+					<td>Name</td>
+					<td>Description</td>
+				</thead>
+				<tbody>
+					{% for client in clients -%}
+						{{client}}
+					{%- endfor %}
+					{% for client in clients -%}
+						<tr>
+							<td>{{client.name}}</td>
+							<td>{{client.description}}</td>
+							<td><button type='submit'>Edit</button></td>
+							<td><button type='submit'>Reset Credentials</button></td>
+						<tr>
+					{%- endfor %}
+				</tbody>
+			</table>
+		</form>
+	</body>
+</html>

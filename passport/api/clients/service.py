@@ -7,6 +7,12 @@ from ...models import Client, Grant
 from ..users.service import current_user
 
 
+def list_clients(client_id=None):
+    query = Client.query
+    query = query.filter_by(id=client_id) if client_id else query
+    return query.all()
+    
+
 def create_client(name, redirect_uris, description):
     client = Client(
         name=name,
