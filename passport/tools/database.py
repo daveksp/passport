@@ -45,14 +45,14 @@ def create_roles(db):
 
 
 def create_admin_user(db, admin_role):
-    person = Person(first_name = 'admin', last_name='admin')
-    person.user = User(username='admin', email='dkspinheiro@gmail.com',
+    user = User(username='admin', email='dkspinheiro@gmail.com',
                 password=encrypt_password('123456'), roles=[admin_role],
                 active=True)
+    user.person = Person(first_name = 'admin', last_name='admin')
 
-    db.session.add(person)
+    db.session.add(user)
     db.session.commit()
-    return person
+    return user
 
 
 def create_clients(db, user):

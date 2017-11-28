@@ -28,3 +28,10 @@ class Failures(object):
         "message": "Other error (contact BPTechnologies for support).",
         "details": None
     })
+
+    name_already_exists = Failure({
+        "error_category": "request_data",
+        "error_type": "constraint_violation",
+        "message": "",
+        "details": ""
+    })

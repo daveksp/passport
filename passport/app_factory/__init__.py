@@ -4,8 +4,7 @@ from flask_uploads import configure_uploads
 
 from .. import config
 from ..api.utilities import project_path
-from ..extensions import (celery, db, images, jwt, kv_session, oauth,
-                          security)
+from ..extensions import (celery, db, images, oauth, security, sentinel)
 from ..models import User, Role
 from ..security.login_form import ExtendedLoginForm
 
@@ -36,7 +35,7 @@ def create_app(package_name, package_path, settings_override=None,
     else:
         app.config.from_object(settings_override)
 
-    common_extensions = frozenset([celery, db, jwt, kv_session, oauth])
+    common_extensions = frozenset([celery, db, oauth, sentinel])
     
     user_datastore = SQLAlchemyUserDatastore(db, User, Role)
     security.init_app(app, user_datastore, login_form=ExtendedLoginForm)

@@ -18,6 +18,12 @@ def setup_handlers(app):
         response.headers.extend({'Request-Id': display_id})
         return response
 
+    # for local dev only
+    @app.after_request
+    def after_request(response):
+        response.direct_passthrough = False
+        return response
+
     @app.errorhandler(ApiException)
     def bad_request(e):
         return jsonify({'error': e.errors}), 400

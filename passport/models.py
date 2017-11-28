@@ -24,6 +24,11 @@ class User(db.Model, UserMixin):
         'Role', secondary=roles_users,
         backref=db.backref('users', lazy='dynamic'))
 
+    person_id = db.Column(
+        db.Integer, db.ForeignKey('persons.id')
+    )
+    person = db.relationship('Person')
+
 
 class Role(db.Model, RoleMixin):
     __tablename__ = 'roles'
@@ -58,6 +63,10 @@ class Client(db.Model):
         if self._redirect_uris:
             return self._redirect_uris.split()
         return []
+
+    @redirect_uris.setter
+    def redirect_uris(self, value):
+        self._redirect_uris = value
 
     @property
     def default_redirect_uri(self):
@@ -155,8 +164,3 @@ class Person(db.Model):
     last_name = db.Column(db.String(40))
     photo = db.Column(db.String(160))
     team = db.Column(db.String(40))
-
-    user_id = db.Column(
-        db.Integer, db.ForeignKey('users.id')
-    )
-    user = db.relationship('User')

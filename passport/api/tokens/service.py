@@ -1,8 +1,9 @@
 from datetime import datetime, timedelta
+import json
 
-from ...extensions import db, jwt, oauth, store
+from ...extensions import db, oauth, store
 from ...models import Token
-from ..persons.service import generate_jwt
+from ..users.service import generate_jwt
 
 
 @oauth.tokengetter
@@ -31,8 +32,10 @@ def save_token(token, request, *args, **kwargs):
     )
     db.session.add(token_obj)
     db.session.commit()
-    token = generate_jwt(request.user)
-    store.put(token_obj.access_token,  str(token))
+
+    store.put(token_obj.access_token, json.dumps({
+        'jwt':str(generate_jwt(request.user)),
+        'expires': str(expires)}))
     return token_obj
 
 

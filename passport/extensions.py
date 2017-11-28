@@ -7,7 +7,7 @@ from flask_uploads import UploadSet, IMAGES
 from simplekv.memory.redisstore import RedisStore
 import redis
 
-from jwt import JWTAuthenticator
+from sentinel import Authorizer
 
 
 store = RedisStore(redis.StrictRedis())
@@ -22,6 +22,4 @@ security = Security()
 
 images = UploadSet('images', IMAGES)
 
-jwt = JWTAuthenticator()
-
-kv_session = KVSessionExtension(store)
+sentinel = Authorizer()

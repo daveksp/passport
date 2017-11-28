@@ -22,7 +22,6 @@ class CommonTests(TestCase):
             "message": "Testing the Failure Object.",
             "details": None
         })
-        import pdb; pdb.set_trace()
         editable_failure = Failures.test_failure
         editable_failure['details'] = 'error detail'
         eq_(editable_failure['details'], 'error detail')

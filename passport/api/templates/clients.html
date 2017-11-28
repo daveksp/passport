@@ -1,22 +1,61 @@
 {% extends 'layout.html' %}
+
+{% block top_menu %}
+    
+{% endblock %}
+
 {% block content %}
-    <form action='reset_credentials' method="POST">
-        <table>
-            <thead>
-                <td>Name</td>
-                <td>Description</td>
-            </thead>
-            <tbody>
-                {% for client in clients -%}
-                    <tr>
-                        <td>{{client.name}}</td>
-                        <td>{{client.description}}</td>
-                        <td><button type='submit'>Reset Credentials</button></td>
-                        <td><button>Edit</button></td>
-                        <td><button>Remove</button></td>
-                    <tr>
-                {%- endfor %}
-            </tbody>
-        </table>
-    </form>
+    <div class="panel panel-default">
+        <div class="panel-heading">Clients</div>
+        <div class="panel-body">
+            {% if operation_type == 'list' %}
+                <form onsubmit="return false;">
+                    <table class="table table-hover">
+                        <thead>
+                            <td>Name</td>
+                            <td>Description</td>
+                        </thead>
+                        <tbody>
+                            {% for client in clients -%}
+                                <tr>
+                                    <td>{{client.name}}</td>
+                                    <td>{{client.description}}</td>
+                                    <td><button class="btn btn-default" type='submit'>Reset Credentials</button></td>
+                                    <td><a href="clients/{{client.id}}" class="btn btn-default">Edit</a></td>
+                                    <td><a class="btn btn-default">Remove</a></td>
+                                <tr>
+                            {%- endfor %}
+                        </tbody>
+                    </table>
+                </form>
+            {% else %}
+                {% set client = clients[0] %}
+                <div class="result"></div>
+                <form onsubmit="return false;">
+                    <input type="hidden" class="form-control" name="id" value="{{client.id | int}}"/>
+                    <div class="form-group">
+                        <label for="name"/>Name</label>
+                        <input type="text" class="form-control" name="name" value="{{client.name or ''}}"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="description"/>Description</label>
+                        <input type="text" class="form-control" name="description" value="{{client.description or ''}}"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="redirect_uris"/>Redirect url</label>
+                        <input type="text" class="form-control tags" name="redirect_uris" value="{{client.redirect_uris  or ''}}"/>
+                    </div>
+                     <div class="form-group">
+                        <label for="client_id"/>Client_id</label>
+                        <input type="text" class="form-control" name="client_id" value="{{client.client_id or ''}}" readonly/>
+                    </div>
+                    <div class="form-group">
+                        <label for="client_secret"/>Client_secret</label>
+                        <input type="text" class="form-control" name="client_secret" value="{{client.client_secret or ''}}" readonly/>
+                    </div>
+                    <button type="submit" class="btn btn-default"/>{{'Update' if client.id else 'Create'}}</button>
+                </form>
+            {% endif %}
+        </div>
+    </div>
 {% endblock %}

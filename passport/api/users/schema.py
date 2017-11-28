@@ -6,6 +6,8 @@ from marshmallow import post_load, validates_schema
 from ..common.failures import Failures as CommonFailures
 from ..exceptions import AccountException, RequestDataException
 from ..extensions import schemas
+from ..persons.schema import PersonSchema
+from ..roles.schema import RoleSchema
 
 from ...extensions import db
 from ...models import Role, User
@@ -13,24 +15,16 @@ from ...models import Role, User
 from .failures import Failures
 
 
-class RoleSchema(schemas.Schema):
-
-    name = schemas.String(required=True)
-    description = schemas.String(requried=True)
-
-    def make_role(self, data):
-        return Role(**(data or {}))
-
-
 class UserSchema(schemas.Schema):
-
+    id = schemas.Integer()
     username = schemas.String(required=True)
     email = schemas.String(required=True)
-    password = schemas.String(required=True)
-    retype_password = schemas.String(required=True)
-    active = schemas.String()
-    confirmed_at = schemas.DateTime()
+    password = schemas.String(required=True, load_only=True)
+    retype_password = schemas.String(required=True, load_only=True)
+    active = schemas.Boolean()
+    confirmed_at = schemas.DateTime(required=True, dump_only=True)
     roles = schemas.Nested(RoleSchema, many=True, load_only=True)
+    person = schemas.Nested(PersonSchema)
 
     def handle_error(self, exc, data):
         response = CommonFailures.information_missing

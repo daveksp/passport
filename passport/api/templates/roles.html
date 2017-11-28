@@ -1,0 +1,44 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+    <div class="panel panel-default">
+        <div class="panel-heading">Clients</div>
+        <div class="panel-body">
+            {% if operation_type == 'list' %}
+                <form action='reset_credentials' method="POST">
+                    <table class="table table-hover">
+                        <thead>
+                            <td>Name</td>
+                            <td>Description</td>
+                        </thead>
+                        <tbody>
+                            {% for role in roles -%}
+                                <tr>
+                                    <td>{{role.name}}</td>
+                                    <td>{{role.description}}</td>
+                                    <td><a href="roles/{{role.id}}" class="btn btn-default">Edit</a></td>
+                                    <td><a class="btn btn-default">Remove</a></td>
+                                <tr>
+                            {%- endfor %}
+                        </tbody>
+                    </table>
+                </form>
+            {% else %}
+                {% set role = roles[0] %}
+                <div class="result"></div>
+                <form onsubmit="return false;">
+                    <input type="hidden" class="form-control" name="id" value="{{role.id | int}}"/>
+                    <div class="form-group">
+                        <label for="name"/>Name</label>
+                        <input type="text" class="form-control" name="name" value="{{role.name  or ''}}"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="description"/>Description</label>
+                        <input type="text" class="form-control" name="description" value="{{role.description  or ''}}"/>
+                    </div>
+                    <button type="submit" class="btn btn-default"/>{{'Update' if role.id else 'Create'}}</button>
+                </form>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

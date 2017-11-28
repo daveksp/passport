@@ -13,16 +13,12 @@ def list_clients(client_id=None):
     return query.all()
     
 
-def create_client(name, redirect_uris, description):
-    client = Client(
-        name=name,
-        client_id=gen_salt(40),
-        description=description,
-        client_secret=gen_salt(50),
-        _redirect_uris=redirect_uris,
-        _default_scopes='email',
-        user_id=1
-    )
+def create_client_credentials(client):
+    client.client_id=gen_salt(40)
+    client.client_secret=gen_salt(50)
+    client._default_scopes='email'
+    client.user_id=1
+    
     db.session.add(client)
     db.session.commit()
 

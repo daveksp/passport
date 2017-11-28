@@ -1,7 +1,8 @@
 from flask import session
 
-from ...extensions import images
+from ...extensions import images, sentinel
 from ...models import User
+from .schema import UserSchema
 
 
 def save_photo(image, username):
@@ -17,3 +18,12 @@ def current_user():
         uid = session['user_id']
         return User.query.get(uid)
     return None
+
+
+def generate_jwt(user):
+    user = User.query.filter_by(id=user.id).first()
+    schema = UserSchema()
+    response, response_errors = schema.dump(user)
+    token = sentinel.authorize(response)
+
+    return token
