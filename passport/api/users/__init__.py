@@ -1,27 +1,30 @@
 # coding: utf-8
+import json
+
 from flask import jsonify, make_response, request
 from flask_restful import Resource
 
-from service import save_photo
+from service import save_photo, user_schema_load, save_and_dump_user
 
 from ..common import api
-from ..persons.service import person_schema_load, save_and_dump_person
 from ...extensions import oauth, sentinel, store
 
 
 routes = ['/me', '/users']
 
+
 @api.resource(*routes)
 class UsersResource(Resource):
 
     def post(self):
-        person = person_schema_load(request.json)
-        person.user.active = True
+        user = user_schema_load(request.json)
+
+        user.active = True
         user_photo = request.files.get('photo', None)
         if user_photo is not None:
-            photo_url = save_photo(user_photo, person.user)
+            photo_url = save_photo(user_photo, user)
 
-        response = save_and_dump_person(person)
+        response = save_and_dump_user(user)
         return make_response(jsonify(response), 201)
 
     @oauth.require_oauth()

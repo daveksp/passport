@@ -13,24 +13,24 @@ def list_clients(client_id=None):
     return query.all()
     
 
-def create_client_credentials(client):
+def create_client_credentials(client, persist_to_db=True):
     client.client_id=gen_salt(40)
     client.client_secret=gen_salt(50)
-    client._default_scopes='email'
-    client.user_id=1
     
-    db.session.add(client)
-    db.session.commit()
+    if persist_to_db:
+        client._default_scopes='email'
+        client.user_id=1
+        db.session.add(client)
+        db.session.commit()
 
     return client
 
 
 def reset_credentials(name):
     client = Client.query.filter_by(name=name).first()
-    db.session.delete(client)
-    new_client = create_client(client.name, client._redirect_uris)
+    client = create_client_credentials(client)
     db.session.commit()
-    return create_credentials_response(new_client)
+    return create_credentials_response(client)
 
 
 def create_credentials_response(client):

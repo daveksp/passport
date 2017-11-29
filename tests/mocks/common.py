@@ -27,7 +27,7 @@ def role_data(json=False):
 
 def client_data(json=False):
     return{
-        "name": "Test Role",
+        "name": "Test Client",
         "description": "test description",
         "redirect_uris": "['http://localhost:5000']"
     }
