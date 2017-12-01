@@ -31,9 +31,6 @@ def create_tables(db, bind='__all__', app=None):
 def create_roles(db):
     roles = [
         Role(id=1, name='admin', description='admin role'),
-        Role(id=2, name='agent', description='agent role'),
-        Role(id=3, name='club', description='club role'),
-        Role(id=4, name='supporter', description='supporter role')
     ]
 
     for role in roles:
