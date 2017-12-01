@@ -1,21 +1,22 @@
 import json
+from unittest import TestCase
+
 from nose.tools import assert_is_not_none, eq_
 
-from ..base import IntegrationTestCase
+from ..base import AppCreator
 from ...mocks.common import user_data
 
 from passport.models import User
 
 
-class UserTests(IntegrationTestCase):
+class UserTests(TestCase):
+    __metaclass__ = AppCreator
 
-
-    def setUp(self):
-        self.create_app()
 
     def test_get(self):
         response = self.client.get(
-        	'/auth/users')
+        	'/auth/users',
+            headers=self.header)
         
         response_data = json.loads(response.data)
         assert_is_not_none(response_data['jwt'])
@@ -29,7 +30,7 @@ class UserTests(IntegrationTestCase):
         response = self.client.post(
         	'/auth/users',
         	data=json.dumps(user_json),
-            headers=self.header)
+            headers=self.json_header)
 
         response_data = json.loads(response.data)
         assert_is_not_none(response_data['person'])

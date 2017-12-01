@@ -5,7 +5,7 @@ from nose.tools import eq_
 from mock import patch, mock_open
 from werkzeug.exceptions import Unauthorized
 
-from comptoir_faux import create_app
+from passport import create_app
 from . import Authorizer
 
 
@@ -21,7 +21,7 @@ class SentinelTests(TestCase):
             secret_key = Authorizer.read_key('test_key')
             eq_(secret_key, 'secret_key')
 
-    @patch('comptoir_faux.sentinel.request')
+    @patch('passport.sentinel.request')
     def test_get_token_auth_type(self, mock_request):
         mock_request.headers = {"authorization-token": "secret"}
         with self.app.test_request_context('/?name=Peter'):
@@ -29,7 +29,7 @@ class SentinelTests(TestCase):
             eq_(token_type, "auth-token")
             eq_(auth_token, "secret")
 
-    @patch('comptoir_faux.sentinel.request')
+    @patch('passport.sentinel.request')
     def test_get_token_oauth_type(self, mock_request):
         mock_request.headers = {"Authorization": "Bearer secret"}
         with self.app.test_request_context('/?name=Peter'):
@@ -37,7 +37,7 @@ class SentinelTests(TestCase):
             eq_(token_type, "oauth")
             eq_(auth_token, "secret")
 
-    @patch('comptoir_faux.sentinel.request')
+    @patch('passport.sentinel.request')
     def test_get_token_jwt_type(self, mock_request):
         mock_request.headers = {"Authorization": "secret"}
         with self.app.test_request_context('/?name=Peter'):
@@ -60,9 +60,9 @@ class SentinelTests(TestCase):
             eq_(is_expired, True)
 
     @freeze_time('2017-06-28 12:01')
-    @patch('comptoir_faux.sentinel.Authorizer.verify_jwt')
-    @patch('comptoir_faux.sentinel.store')
-    @patch('comptoir_faux.sentinel.request')
+    @patch('passport.sentinel.Authorizer.verify_jwt')
+    @patch('passport.sentinel.store')
+    @patch('passport.sentinel.request')
     def test_validate_oauth_token(self, mock_request, mock_store, mock_jwt):
         expected_user_data = {"username": "test user", "email": "test@email.com"}
         mock_store.keys.return_value = {'secret', 'other-secret'}
@@ -73,7 +73,7 @@ class SentinelTests(TestCase):
             eq_(is_valid_token, True)
             eq_(user_data, expected_user_data)
 
-    @patch('comptoir_faux.sentinel.store')
+    @patch('passport.sentinel.store')
     def test_validate_oauth_token_invalid_token(self, mock_store):
         mock_store.keys.return_value = {'other-secret'}
         with self.app.test_request_context('/?name=Peter'):
@@ -82,7 +82,7 @@ class SentinelTests(TestCase):
             eq_(user_Data, None)
 
     @freeze_time('2017-06-28 12:01')
-    @patch('comptoir_faux.sentinel.store')
+    @patch('passport.sentinel.store')
     def test_validate_oauth_token_expired_token(self, mock_store):
         mock_store.keys.return_value = {'secret', 'other-secret'}
         mock_store.get.return_value = '{"user": "Test User", "expires":"2017-06-25 06:24:25.546749"}'
@@ -98,8 +98,8 @@ class SentinelTests(TestCase):
             response_data = self.authorizer.verify_jwt(jwt, "secret")
             eq_(response_data, expected_user_data)
 
-    @patch('comptoir_faux.sentinel.Authorizer.validate_oauth_token')
-    @patch('comptoir_faux.sentinel.request')
+    @patch('passport.sentinel.Authorizer.validate_oauth_token')
+    @patch('passport.sentinel.request')
     def test_require_token(self, mock_request, mock_token_validator):
         expected_user_data = '{"username": "test user", "email": "test@email.com"}'
         mock_request.headers = {"Authorization": "Bearer correct_token"}
@@ -134,7 +134,7 @@ class SentinelTests(TestCase):
              self.assertRaises(Unauthorized):
             decorated_func()
 
-    @patch('comptoir_faux.sentinel.request')
+    @patch('passport.sentinel.request')
     def test_require_token_invalid_auth_token(self, mock_request):
         mock_request.headers = {"authorization-token": "other-secret"}
 
@@ -146,7 +146,7 @@ class SentinelTests(TestCase):
              self.assertRaises(Unauthorized):
             decorated_func()
 
-    @patch('comptoir_faux.sentinel.request')
+    @patch('passport.sentinel.request')
     def test_require_token_valid_auth_token(self, mock_request):
         mock_request.headers = {"authorization-token": "SECRET"}
 
@@ -158,7 +158,7 @@ class SentinelTests(TestCase):
             result = decorated_func()
             eq_(result, 'test')
 
-    @patch('comptoir_faux.sentinel.request')
+    @patch('passport.sentinel.request')
     def test_require_token_invalid_oauth_token(self, mock_request):
         mock_request.headers = {"Authorization": "Bearer wrong_token"}
         

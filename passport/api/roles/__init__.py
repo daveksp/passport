@@ -20,7 +20,8 @@ class RoleResource(Resource):
         role = role_schema.load(request.json or {}, partial=('id',))[0]
         db.session.add(role)
         db.session.commit()
-        return jsonify({'msg': 'ok'})
+        response, errors = role_schema.dump(role)
+        return jsonify(response)
 
     def put(self, role_id):
         role_update, request_errors = role_schema.load(request.json or {})
@@ -28,4 +29,5 @@ class RoleResource(Resource):
         role.name = role_update.name
         role.description = role_update.description
         db.session.commit()
-        return jsonify({'msg': 'ok'})
+        response, errors = role_schema.dump(role)
+        return jsonify(response)

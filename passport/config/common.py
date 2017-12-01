@@ -27,6 +27,8 @@ class Common(object):
     SECURITY_PASSWORD_HASH = 'bcrypt'
     SECURITY_PASSWORD_SALT = '$2a$16$PnnIgfMwkOjGX4SkHqSOPO'
 
+    # sentinel
+    SENTINEL_PROTECTED = True
     SENTINEL_JWT_PRIVATE_KEY = project_path() + '/resources/test_rsa_private_key.txt'
     SENTINEL_JWT_PUBLIC_KEY = project_path() + '/resources/test_rsa_public_key.txt'
     SENTINEL_JWT_ALGORITHM = 'RS256'
