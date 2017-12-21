@@ -15,7 +15,7 @@ class UserTests(TestCase):
 
     def test_get(self):
         response = self.client.get(
-        	'/auth/users',
+        	'/passport/api/v1/auth/users',
             headers=self.header)
         
         response_data = json.loads(response.data)
@@ -28,7 +28,7 @@ class UserTests(TestCase):
         del user_json['confirmed_at']
         del user_json['id']
         response = self.client.post(
-        	'/auth/users',
+        	'/passport/api/v1/auth/users',
         	data=json.dumps(user_json),
             headers=self.json_header)
 

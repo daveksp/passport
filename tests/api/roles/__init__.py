@@ -22,7 +22,7 @@ class RoleTests(TestCase):
     	    role_json['name'] = 'Updated Role'
     	    role_json['id'] = role.id
             response = self.client.put(
-        	    '/auth/roles/{}'.format(role.id),
+        	    '/passport/api/v1/auth/roles/{}'.format(role.id),
         	    data=json.dumps(role_json),
                 headers=self.json_header)
             response_data = json.loads(response.data)
@@ -34,7 +34,7 @@ class RoleTests(TestCase):
     	role_json = role_data()
     	role_json['name'] = 'New Role'
         response = self.client.post(
-        	'/auth/roles',
+        	'/passport/api/v1/auth/roles',
         	data=json.dumps(role_json),
             headers=self.json_header)
 

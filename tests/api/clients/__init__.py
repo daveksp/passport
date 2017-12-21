@@ -19,7 +19,7 @@ class ClientTests(TestCase):
     	client_json['name'] = 'Updated Client'
     	client_json['id'] = client.id
         response = self.client.put(
-        	'/auth/clients/{}'.format(client.id),
+        	'/passport/api/v1/auth/clients/{}'.format(client.id),
         	data=json.dumps(client_json),
             headers=self.json_header)
         response_data = json.loads(response.data)
@@ -30,7 +30,7 @@ class ClientTests(TestCase):
     	client_json = client_data()
     	client_json['name'] = 'New Client'
         response = self.client.post(
-        	'/auth/clients',
+        	'/passport/api/v1/auth/clients',
         	data=json.dumps(client_json),
             headers=self.json_header)
 

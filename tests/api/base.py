@@ -41,7 +41,7 @@ def create_test_objects():
             db.session.commit()
         app.login_manager.init_app(app)
         app_client = app.test_client()
-        rv = app_client.post('/auth/token', data={
+        rv = app_client.post('/passport/api/v1/auth/token', data={
             'grant_type': 'client_credentials',
             'client_id': 'abcd',
             'client_secret': 'abcd',
