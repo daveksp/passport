@@ -23,9 +23,12 @@ class Common(object):
     SQLALCHEMY_DATABASE_URI = 'sqlite:////tmp/passport.db'
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
-    SECURITY_POST_LOGIN_VIEW = 'auth/register'
+    SECURITY_POST_LOGIN_VIEW = 'passport/auth/register'
     SECURITY_PASSWORD_HASH = 'bcrypt'
     SECURITY_PASSWORD_SALT = '$2a$16$PnnIgfMwkOjGX4SkHqSOPO'
+    SECURITY_URL_PREFIX = '/passport'
+    SECURITY_LOGOUT_URL = '/logout'
+    SECURITY_POST_LOGOUT_VIEW = '/passport/admin'
 
     # sentinel
     SENTINEL_PROTECTED = True

@@ -5,8 +5,10 @@ from flask_security import login_required
 
 from ..clients.service import list_clients
 from ..roles.service import list_roles
-from ...models import Client, Role 
-admin = Blueprint('admin', __name__, url_prefix='/admin', template_folder='admin_templates', static_folder="static")
+from ...models import Client, Role
+
+
+admin = Blueprint('admin', __name__, url_prefix='/passport/admin')
 
 
 @admin.route('/', methods=['GET'])

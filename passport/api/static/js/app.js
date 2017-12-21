@@ -2,11 +2,11 @@ $(document).ready(function(){
 	
 	var url = ''
 	var type = '';
-    if(location.pathname.startsWith('/admin/clients')){
-		url = '/auth/clients';
+    if(location.pathname.startsWith('/passport/admin/clients')){
+		url = '/passport/api/v1/auth/clients';
 		type = 'clients';
 	} else{
-		url = '/auth/roles';
+		url = '/passport/api/v1/auth/roles';
 		type = 'roles';
 	}
 

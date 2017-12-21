@@ -26,14 +26,16 @@ def create_app(package_name, package_path, settings_override=None,
         initialize on the app
     """
     app = Flask(package_name)
+
+    settings = {
+        'production': config.Production()
+    }
     
     app.config.from_object(config.Common())
     app.config.from_pyfile(project_path('settings.cfg'), silent=True)
 
     if isinstance(settings_override, basestring):
-        app.config.from_pyfile(settings_override, silent=True)
-    else:
-        app.config.from_object(settings_override)
+        app.config.from_object(settings[settings_override])
 
     common_extensions = frozenset([celery, db, oauth, sentinel])
     
