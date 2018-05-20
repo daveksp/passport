@@ -3,7 +3,7 @@ FROM python:2.7
 RUN mkdir -p /opt/app/
 
 WORKDIR /opt/app
-COPY ../passport/ /opt/app/
+COPY . /opt/app/
 RUN ls /opt/app
 RUN pip install -r resources/requirements.txt
 
