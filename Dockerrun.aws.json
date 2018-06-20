@@ -4,12 +4,12 @@
   "containerDefinitions": [
     {
       "name": "passport-app",
-      "image": "951283578974.dkr.ecr.eu-east-1.amazonaws.com/bptechnologies:latest",
+      "image": "951283578974.dkr.ecr.us-east-1.amazonaws.com/bptechnologies:latest",
       "essential": true,
       "memoryReservation": 200,
       "portMappings": [
         {
-          "hostPort": 8089,
+          "hostPort": 80,
           "containerPort": 8089
         }
       ],
