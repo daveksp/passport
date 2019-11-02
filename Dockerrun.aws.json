@@ -1,0 +1,26 @@
+{
+  "AWSEBDockerrunVersion": 2,
+  "volumes": [],
+  "containerDefinitions": [
+    {
+      "name": "passport-app",
+      "image": "951283578974.dkr.ecr.us-east-1.amazonaws.com/bptechnologies:latest",
+      "essential": true,
+      "memoryReservation": 200,
+      "portMappings": [
+        {
+          "hostPort": 80,
+          "containerPort": 8089
+        }
+      ],
+      "links": [],
+      "environment": [
+        {
+          "name": "SPRING_PROFILES_ACTIVE",
+          "value": "development"
+        }
+      ],
+      "mountPoints": []
+    }
+  ]
+}
