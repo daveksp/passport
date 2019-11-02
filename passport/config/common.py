@@ -35,3 +35,5 @@ class Common(object):
     SENTINEL_JWT_PRIVATE_KEY = project_path() + '/resources/test_rsa_private_key.txt'
     SENTINEL_JWT_PUBLIC_KEY = project_path() + '/resources/test_rsa_public_key.txt'
     SENTINEL_JWT_ALGORITHM = 'RS256'
+
+    FLASKS3_BUCKET_NAME = 'passport-dev'

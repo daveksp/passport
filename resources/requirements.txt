@@ -15,6 +15,7 @@ Flask-KVSession==0.6.2
 flask-marshmallow==0.7.0
 Flask-OAuthlib==0.9.3
 Flask-RESTful==0.3.5
+Flask-S3==0.3.3
 Flask-Script==2.0.5
 Flask-Security==1.7.5
 Flask-SQLAlchemy==2.1

@@ -162,5 +162,5 @@ class Person(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     first_name = db.Column(db.String(40))
     last_name = db.Column(db.String(40))
-    photo = db.Column(db.String(160))
-    team = db.Column(db.String(40))
+    photo = db.Column(db.String(260))
+    team_id = db.Column(db.Integer)

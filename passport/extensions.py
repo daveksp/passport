@@ -2,6 +2,7 @@ from flask_celeryext import FlaskCeleryExt
 from flask_security import Security
 from flask_kvsession import KVSessionExtension
 from flask_oauthlib.provider import OAuth2Provider
+from flask_s3 import FlaskS3
 from flask_sqlalchemy import SQLAlchemy
 from flask_uploads import UploadSet, IMAGES
 from simplekv.memory.redisstore import RedisStore
@@ -23,3 +24,5 @@ security = Security()
 images = UploadSet('images', IMAGES)
 
 sentinel = Authorizer()
+
+s3 = FlaskS3()

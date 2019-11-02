@@ -10,7 +10,8 @@ manager.add_command('rebuilddb', RebuildDbCommand())
 manager.add_command('create_tables', CreateTablesCommand())
 
 manager.add_option('-e', '--env', dest='settings_override',
-	               required=False, default='production')
+                    required=False, default='dev')
+
 
 if __name__ == '__main__':
     manager.run()

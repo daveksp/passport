@@ -1,6 +1,6 @@
 from flask_script import Command
 
-from .extensions import db
+from .extensions import db, s3
 from .tools.database import recreate_db, create_tables
 
 
