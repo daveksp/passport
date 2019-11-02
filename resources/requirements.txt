@@ -28,7 +28,7 @@ Jinja2==2.9.5
 kombu==3.0.37
 lxml==3.7.3
 MarkupSafe==0.23
-marshmallow==2.13.0
+marshmallow==2.15.1
 marshmallow-sqlalchemy==0.12.1
 MySQL-python==1.2.5
 oauthlib==2.0.1
