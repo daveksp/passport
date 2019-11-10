@@ -47,7 +47,7 @@ suds-jurko==0.6
 ua-parser==0.7.3
 Unidecode==0.4.20
 user-agents==1.1.0
-Werkzeug==0.11.15
+Werkzeug==0.15.3
 wheel==0.24.0
 zappa==0.45.1
 PyMySQL
