@@ -20,7 +20,8 @@ class Common(object):
 
     OAUTH2_PROVIDER_TOKEN_EXPIRES_IN = 3600
 
-    SQLALCHEMY_DATABASE_URI = 'sqlite:////tmp/passport.db'
+    SQLALCHEMY_DATABASE_URI = 'mysql://root@mysql/passport'
+    #SQLALCHEMY_DATABASE_URI = 'sqlite:////tmp/passport.db'
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
     SECURITY_POST_LOGIN_VIEW = 'passport/auth/register'

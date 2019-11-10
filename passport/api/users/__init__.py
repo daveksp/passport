@@ -4,7 +4,7 @@ import json
 from flask import jsonify, make_response, request
 from flask_restful import Resource
 
-from service import save_photo, user_schema_load, save_and_dump_user
+from service import user_schema_load, save_and_dump_user
 
 from ..common import api
 from ...extensions import oauth, sentinel, store
@@ -20,10 +20,6 @@ class UsersResource(Resource):
         user = user_schema_load(request.json)
 
         user.active = True
-        user_photo = request.files.get('photo', None)
-        if user_photo is not None:
-            photo_url = save_photo(user_photo, user)
-
         response = save_and_dump_user(user)
         return make_response(jsonify(response), 201)
 

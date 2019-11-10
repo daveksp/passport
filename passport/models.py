@@ -51,7 +51,7 @@ class Client(db.Model):
     user_id = db.Column(db.ForeignKey('users.id'))
     user = db.relationship('User')
 
-    _redirect_uris = db.Column(db.String(60))
+    _redirect_uris = db.Column(db.String(255))
     _default_scopes = db.Column(db.String(40))
 
     @property
@@ -162,5 +162,5 @@ class Person(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     first_name = db.Column(db.String(40))
     last_name = db.Column(db.String(40))
-    photo = db.Column(db.String(260))
+    phone_number = db.Column(db.String(40))
     team_id = db.Column(db.Integer)
