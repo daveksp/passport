@@ -24,7 +24,7 @@ Flask-Uploads==0.2.1
 graypy==0.2.14
 gunicorn==19.7.0
 itsdangerous==0.24
-Jinja2==2.9.5
+Jinja2==2.11.3
 kombu==3.0.37
 lxml==3.7.3
 MarkupSafe==0.23
